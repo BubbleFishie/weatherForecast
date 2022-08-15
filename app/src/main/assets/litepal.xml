@@ -32,9 +32,9 @@
     	</list>
     -->
     <list>
-        <mapping class="com.weather.android.db.Province"/>
-        <mapping class="com.weather.android.db.City"/>
-        <mapping class="com.weather.android.db.County"/>
+        <mapping class="com.example.weatherforecast.db.Province"/>
+        <mapping class="com.example.weatherforecast.db.City"/>
+        <mapping class="com.example.weatherforecast.db.County"/>
     </list>
 
     <!--
