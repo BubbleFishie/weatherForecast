@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,6 +109,7 @@ public class ChooseAreaFragment extends Fragment {
                     SharedPreferences.Editor editor= PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
                     editor.putString("cityName",countyList.get(i).getCountyName());
                     editor.putString("weatherId",weatherId);
+                    Log.d("weather_id",weatherId);
                     editor.apply();
                     if(getActivity() instanceof MainActivity) {
 
@@ -115,8 +117,10 @@ public class ChooseAreaFragment extends Fragment {
                         startActivity(intent);
                         getActivity().finish();
                     }else  if(getActivity() instanceof WeatherActivity) {
+                      //  titleText.setHeight(80);
                         WeatherActivity weatherActivity=(WeatherActivity) getActivity();
                         weatherActivity.drawerLayout.closeDrawers();
+                        Log.d("close drawer: ","yes");
                         weatherActivity.swipeRefresh.setRefreshing(true);
                         weatherActivity.requestAll(weatherId);
                     }

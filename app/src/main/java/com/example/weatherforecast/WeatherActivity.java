@@ -1,6 +1,7 @@
 package com.example.weatherforecast;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -30,6 +31,7 @@ import com.example.weatherforecast.gson.SuggesstionDaily;
 import com.example.weatherforecast.gson.Weather;
 import com.example.weatherforecast.gson.WeatherDaily;
 import com.example.weatherforecast.gson.WeatherNow;
+import com.example.weatherforecast.service.AutoUpdateService;
 import com.example.weatherforecast.util.HttpUtil;
 import com.example.weatherforecast.util.Utility;
 
@@ -94,6 +96,7 @@ public class WeatherActivity extends AppCompatActivity {
         navButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 drawerLayout.openDrawer(GravityCompat.START);
             }
         });
@@ -103,6 +106,7 @@ public class WeatherActivity extends AppCompatActivity {
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                mweatherId=prefs.getString("weatherId",null);
                 Log.d("weather_id",mweatherId);
                 requestAll(mweatherId);
             }
@@ -185,6 +189,9 @@ public class WeatherActivity extends AppCompatActivity {
         carWashText.setText(carWash);
         sportText.setText(sport);
         weatherLayout.setVisibility(View.VISIBLE);
+        Intent intent=new Intent(this, AutoUpdateService.class);
+        startService(intent);
+        show_weather=4;
     }
     /**
      * 查询城市天气

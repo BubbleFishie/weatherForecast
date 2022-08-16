@@ -47,6 +47,7 @@
             android:id="@+id/choose_area_fragment"
             android:name="com.example.weatherforecast.ChooseAreaFragment"
             android:layout_gravity="start"
+
             />
     </androidx.drawerlayout.widget.DrawerLayout>
 
