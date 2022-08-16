@@ -104,15 +104,22 @@ public class ChooseAreaFragment extends Fragment {
                     queryCounties();
 
                 } else if(currentLevel==LEVEL_COUTY) {
+                    String weatherId=countyList.get(i).getWeatherId();
                     SharedPreferences.Editor editor= PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
                     editor.putString("cityName",countyList.get(i).getCountyName());
+                    editor.putString("weatherId",weatherId);
                     editor.apply();
-                    String weatherId=countyList.get(i).getWeatherId();
-                    Intent intent=new Intent(getActivity(),WeatherActivity.class);
-                    intent.putExtra("weather_id",weatherId);
-                    intent.putExtra("city_name",countyList.get(i).getCountyName());
-                    startActivity(intent);
-                    getActivity().finish();
+                    if(getActivity() instanceof MainActivity) {
+
+                        Intent intent=new Intent(getActivity(),WeatherActivity.class);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }else  if(getActivity() instanceof WeatherActivity) {
+                        WeatherActivity weatherActivity=(WeatherActivity) getActivity();
+                        weatherActivity.drawerLayout.closeDrawers();
+                        weatherActivity.swipeRefresh.setRefreshing(true);
+                        weatherActivity.requestAll(weatherId);
+                    }
 
                 }
             }
